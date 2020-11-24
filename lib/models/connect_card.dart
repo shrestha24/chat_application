@@ -10,6 +10,7 @@ class ConnectCard extends StatelessWidget {
           elevation: 22.0,
 
           child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
               CircleAvatar(
                 radius: 25,
@@ -21,9 +22,18 @@ class ConnectCard extends StatelessWidget {
               Text("User1",
               style: TextStyle(fontSize: 20),
               ),
-              GestureDetector(
-                onTap: () {},
-                child: new Icon(Icons.add),
+
+              RaisedButton(
+                onPressed: () {
+
+                },
+                padding: EdgeInsets.all(0),
+                textColor: Colors.black,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(25.0)
+                ),
+                child:
+                Text("+Connect"),
               )
             ],
           ),
