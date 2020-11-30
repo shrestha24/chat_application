@@ -1,3 +1,6 @@
+import 'dart:async';
+
+import 'package:chat_application/encrypt_service.dart';
 import 'package:chat_application/models/lastmsg.dart';
 import 'package:chat_application/models/msg.dart';
 import 'package:chat_application/models/my_flutter_app_icons.dart';
@@ -10,6 +13,7 @@ import 'package:hive/hive.dart';
 import 'package:intl/intl.dart';
 import 'dart:io';
 import 'package:async/async.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class PersonChatView extends StatefulWidget {
   User user1;
@@ -220,8 +224,92 @@ class _PersonChatViewState extends State<PersonChatView> {
                                     children: <Widget>[
                                       GestureDetector(
                                         onTap: () {
-                                          ShowToast().showToast(
-                                              "USER CLICKED ON ENCRYPTION");
+                                          final GlobalKey<FormState> _formKey =
+                                              GlobalKey();
+                                          showDialog(
+                                              context: context,
+                                              builder: (context) {
+                                                return AlertDialog(
+                                                  content: SizedBox(
+                                                    height: 300,
+                                                    child: Stack(
+                                                      children: <Widget>[
+                                                        Center(
+                                                          child: Padding(
+                                                            padding:
+                                                                const EdgeInsets
+                                                                    .all(8.0),
+                                                            child: Form(
+                                                                key: _formKey,
+                                                                child: Column(
+                                                                  mainAxisAlignment:
+                                                                      MainAxisAlignment
+                                                                          .center,
+                                                                  mainAxisSize:
+                                                                      MainAxisSize
+                                                                          .min,
+                                                                  children: <
+                                                                      Widget>[
+                                                                    TextFormField(
+                                                                      maxLength:
+                                                                          40,
+                                                                      validator:
+                                                                          (value) {
+                                                                        if (value
+                                                                            .isEmpty) {
+                                                                          return "Msg Required";
+                                                                        }
+                                                                        return null;
+                                                                      },
+                                                                      decoration: InputDecoration(
+                                                                          labelText:
+                                                                              "Enter Msg",
+                                                                          border:
+                                                                              OutlineInputBorder(),
+                                                                          labelStyle: TextStyle(
+                                                                              color: Colors.black,
+                                                                              fontSize: 24)),
+                                                                    ),
+                                                                    MaterialButton(
+                                                                      color: Colors
+                                                                          .blue,
+                                                                      onPressed:
+                                                                          () async {
+                                                                        String key = "6371849902" +
+                                                                            widget.user1.Phone +
+                                                                            "abcdefghi";
+                                                                        ShowToast().showToast(key
+                                                                            .length
+                                                                            .toString());
+                                                                        print(key
+                                                                            .length
+                                                                            .toString());
+                                                                        var result = await EncrytService().getEncryptedText(
+                                                                            _messageController.text,
+                                                                            key);
+
+                                                                        Timer(
+                                                                            Duration(seconds: 2),
+                                                                            () {
+                                                                          _messageController.text =
+                                                                              result;
+
+                                                                          Navigator.pop(
+                                                                              context);
+                                                                        });
+                                                                      },
+                                                                      child: Text(
+                                                                          "Encrypt"),
+                                                                    )
+                                                                  ],
+                                                                )),
+                                                          ),
+                                                        )
+                                                      ],
+                                                    ),
+                                                  ),
+                                                );
+                                              });
                                         },
                                         child: new Icon(
                                           Icons.enhanced_encryption,
@@ -232,12 +320,105 @@ class _PersonChatViewState extends State<PersonChatView> {
                                   ),
                                 ),
                                 prefixIcon: GestureDetector(
-                                  onTap: () {
-                                    ShowToast().showToast("HELLO");
+                                  onTap: () async {
+                                    final GlobalKey<FormState> _formKey =
+                                        GlobalKey();
+                                    showDialog(
+                                        context: context,
+                                        builder: (context) {
+                                          return AlertDialog(
+                                            content: SizedBox(
+                                              height: 300,
+                                              child: Stack(
+                                                children: <Widget>[
+                                                  Center(
+                                                    child: Padding(
+                                                      padding:
+                                                          const EdgeInsets.all(
+                                                              8.0),
+                                                      child: Form(
+                                                          key: _formKey,
+                                                          child: Column(
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .center,
+                                                            mainAxisSize:
+                                                                MainAxisSize
+                                                                    .min,
+                                                            children: <Widget>[
+                                                              TextFormField(
+                                                                maxLength: 40,
+                                                                validator:
+                                                                    (value) {
+                                                                  if (value
+                                                                      .isEmpty) {
+                                                                    return "Msg Required";
+                                                                  }
+                                                                  return null;
+                                                                },
+                                                                decoration: InputDecoration(
+                                                                    labelText:
+                                                                        "Enter Msg",
+                                                                    border:
+                                                                        OutlineInputBorder(),
+                                                                    labelStyle: TextStyle(
+                                                                        color: Colors
+                                                                            .black,
+                                                                        fontSize:
+                                                                            24)),
+                                                              ),
+                                                              MaterialButton(
+                                                                color:
+                                                                    Colors.blue,
+                                                                onPressed:
+                                                                    () async {
+                                                                  String key = "6371849902" +
+                                                                      widget
+                                                                          .user1
+                                                                          .Phone +
+                                                                      "abcdefghi";
+                                                                  ShowToast()
+                                                                      .showToast(key
+                                                                          .length
+                                                                          .toString());
+                                                                  print(key
+                                                                      .length
+                                                                      .toString());
+                                                                  var result = await EncrytService()
+                                                                      .getDecryptedText(
+                                                                          _messageController
+                                                                              .text,
+                                                                          key);
+
+                                                                  Timer(
+                                                                      Duration(
+                                                                          seconds:
+                                                                              2),
+                                                                      () {
+                                                                    _messageController
+                                                                            .text =
+                                                                        result;
+
+                                                                    Navigator.pop(
+                                                                        context);
+                                                                  });
+                                                                },
+                                                                child: Text(
+                                                                    "Decrypt"),
+                                                              )
+                                                            ],
+                                                          )),
+                                                    ),
+                                                  )
+                                                ],
+                                              ),
+                                            ),
+                                          );
+                                        });
                                   },
                                   child: Icon(
                                     Icons.sms,
-                                    size: ScreenUtil().setSp(45.0),
+                                    size: ScreenUtil().setSp(65.0),
                                     color: Colors.blue,
                                   ),
                                 )),
@@ -257,7 +438,7 @@ class _PersonChatViewState extends State<PersonChatView> {
                                 borderRadius: new BorderRadius.circular(50.0)),
                             child: Center(
                               child: GestureDetector(
-                                onTap: () {
+                                onTap: () async {
                                   if (_messageController.text.trim() != "") {
                                     ShowToast().showToast(
                                         _messageController.text.trim());
@@ -280,6 +461,11 @@ class _PersonChatViewState extends State<PersonChatView> {
                                         .put(widget.user1.Phone, lastMsg);
                                     Hive.box("chat").put(
                                         widget.user1.Phone, widget.msgList);
+                                    var uri = 'sms:' +
+                                        widget.user1.Phone +
+                                        '?body=' +
+                                        _messageController.text;
+                                    launch(uri);
                                     _messageController.text = "";
                                     setState(() {});
 

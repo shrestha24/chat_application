@@ -88,11 +88,25 @@ class _MainHomeScreenState extends State<MainHomeScreen> {
                       itemBuilder: (context, index) {
                         return ListTile(
                           onTap: () {
-                            Navigator.of(context).push(
-                              MaterialPageRoute(
-                                builder: (_) => ChatItemPage(),
-                              ),
+                            List listmsgHistory = [];
+
+                            if (Hive.box("chat")
+                                .containsKey(list1[index].phone)) {
+                              listmsgHistory =
+                                  Hive.box("chat").get(list1[index].phone);
+                              print(listmsgHistory);
+                            }
+                            User user = new User(
+                              Name: list1[index].name,
+                              Phone: list1[index].phone,
                             );
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => PersonChatView(
+                                          user1: user,
+                                          msgList: listmsgHistory,
+                                        )));
                           },
                           leading: Container(
                               width: 50,
