@@ -7,7 +7,7 @@ import 'package:bubble/bubble.dart';
 
 
 class PersonChatView extends StatefulWidget {
-  ChatUser user;
+  ChatModel user;
   PersonChatView({@required this.user});
 
   @override
@@ -18,6 +18,7 @@ class _PersonChatViewState extends State<PersonChatView> {
   TextEditingController _messageController;
   @override
   void initState() {
+
     super.initState();
     _messageController = new TextEditingController();
   }
@@ -25,15 +26,11 @@ class _PersonChatViewState extends State<PersonChatView> {
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
-        backgroundColor: Theme.of(context).accentColor,
+        backgroundColor: Colors.white30,
         appBar: new AppBar(
           automaticallyImplyLeading: false,
           titleSpacing: 1.0,
-          actions: <Widget>[
-            new IconButton(icon: new Icon(Icons.videocam), onPressed: () {}),
-            new IconButton(icon: new Icon(Icons.call), onPressed: () {}),
-            new IconButton(icon: new Icon(Icons.more_vert), onPressed: () {}),
-          ],
+
           title: new Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
@@ -56,7 +53,7 @@ class _PersonChatViewState extends State<PersonChatView> {
                     new ClipRRect(
                       borderRadius: BorderRadius.circular(30.0),
                       child: Image.asset(
-                        widget.user.imageURL,
+                        'assets\default.png',
                         fit: BoxFit.cover,
                         height: ScreenUtil().setHeight(100.0),
                         width: ScreenUtil().setWidth(100.0),
@@ -72,7 +69,7 @@ class _PersonChatViewState extends State<PersonChatView> {
                       ScreenUtil().setWidth(10.0), 0.0, 0.0, 0.0),
                   margin: EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 0.0),
                   child: new Text(
-                    widget.user.name,
+                    "shrestha",
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                     style: new TextStyle(fontSize: ScreenUtil().setSp(40.0)),
@@ -97,102 +94,102 @@ class _PersonChatViewState extends State<PersonChatView> {
                     itemBuilder: (context, index) {
                       return msgs[index].isMe
                           ? new Bubble(
-                              margin: BubbleEdges.only(
-                                  top: (index < msgs.length - 1 &&
-                                          msgs[index + 1].isMe)
-                                      ? ScreenUtil().setHeight(5.0)
-                                      : ScreenUtil().setHeight(20.0),
-                                  left: ScreenUtil().setWidth(100.0),
-                                  bottom: index == 0
-                                      ? ScreenUtil().setHeight(10.0)
-                                      : ScreenUtil().setHeight(0.0)),
-                              nip: (index < msgs.length - 2 &&
-                                      msgs[index + 1].isMe)
-                                  ? BubbleNip.no
-                                  : BubbleNip.rightTop,
-                              color: Color.fromRGBO(225, 255, 199, 1.0),
-                              nipHeight: ScreenUtil().setHeight(12.0),
-                              alignment: Alignment.centerRight,
-                              elevation: 0.4,
-                              child: new Column(
-                                mainAxisSize: MainAxisSize.min,
-                                crossAxisAlignment: CrossAxisAlignment.end,
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: <Widget>[
-                                  new Text(
-                                    msgs[index].msg,
-                                  ),
-                                  new SizedBox(
-                                    height: ScreenUtil().setHeight(10.0),
-                                  ),
-                                  new Row(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    mainAxisSize: MainAxisSize.min,
-                                    children: <Widget>[
-                                      new Text(
-                                        msgs[index].time,
-                                        style: new TextStyle(
-                                            fontSize: ScreenUtil().setSp(20.0),
-                                            color: Colors.grey),
-                                      ),
-                                      new SizedBox(
-                                        width: ScreenUtil().setWidth(10.0),
-                                      ),
-                                      new Icon(
-                                        msgs[index].sent
-                                            ? Icons.check
-                                            : MyFlutterApp
-                                                .icons8_double_tick_50,
-                                        color: msgs[index].seen
-                                            ? Colors.blue
-                                            : Colors.grey,
-                                        size: ScreenUtil().setSp(27.0),
-                                      )
-                                    ],
-                                  ),
-                                ],
-                              ),
-                            )
+                        margin: BubbleEdges.only(
+                            top: (index < msgs.length - 1 &&
+                                msgs[index + 1].isMe)
+                                ? ScreenUtil().setHeight(5.0)
+                                : ScreenUtil().setHeight(20.0),
+                            left: ScreenUtil().setWidth(100.0),
+                            bottom: index == 0
+                                ? ScreenUtil().setHeight(10.0)
+                                : ScreenUtil().setHeight(0.0)),
+                        nip: (index < msgs.length - 2 &&
+                            msgs[index + 1].isMe)
+                            ? BubbleNip.no
+                            : BubbleNip.rightTop,
+                        color: Color.fromRGBO(225, 255, 199, 1.0),
+                        nipHeight: ScreenUtil().setHeight(12.0),
+                        alignment: Alignment.centerRight,
+                        elevation: 0.4,
+                        child: new Column(
+                          mainAxisSize: MainAxisSize.min,
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: <Widget>[
+                            new Text(
+                              msgs[index].msg,
+                            ),
+                            new SizedBox(
+                              height: ScreenUtil().setHeight(10.0),
+                            ),
+                            new Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              mainAxisSize: MainAxisSize.min,
+                              children: <Widget>[
+                                new Text(
+                                  msgs[index].time,
+                                  style: new TextStyle(
+                                      fontSize: ScreenUtil().setSp(20.0),
+                                      color: Colors.grey),
+                                ),
+                                new SizedBox(
+                                  width: ScreenUtil().setWidth(10.0),
+                                ),
+                                new Icon(
+                                  msgs[index].sent
+                                      ? Icons.check
+                                      : MyFlutterApp
+                                      .icons8_double_tick_50,
+                                  color: msgs[index].seen
+                                      ? Colors.blue
+                                      : Colors.grey,
+                                  size: ScreenUtil().setSp(27.0),
+                                )
+                              ],
+                            ),
+                          ],
+                        ),
+                      )
                           : new Bubble(
-                              margin: BubbleEdges.only(
-                                  top: (index < msgs.length - 2 &&
-                                          msgs[index + 1].isMe)
-                                      ? ScreenUtil().setHeight(20.0)
-                                      : ScreenUtil().setHeight(5.0),
-                                  right: ScreenUtil().setWidth(100.0)),
-                              nip: (index < msgs.length - 1 &&
-                                      msgs[index + 1].isMe)
-                                  ? BubbleNip.leftTop
-                                  : BubbleNip.no,
-                              nipHeight: ScreenUtil().setHeight(12.0),
-                              alignment: Alignment.centerLeft,
-                              elevation: 0.4,
-                              child: new Column(
-                                mainAxisSize: MainAxisSize.min,
-                                crossAxisAlignment: CrossAxisAlignment.end,
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: <Widget>[
-                                  new Text(
-                                    msgs[index].msg,
-                                  ),
-                                  new SizedBox(
-                                    height: ScreenUtil().setHeight(10.0),
-                                  ),
-                                  new Row(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    mainAxisSize: MainAxisSize.min,
-                                    children: <Widget>[
-                                      new Text(
-                                        msgs[index].time,
-                                        style: new TextStyle(
-                                            fontSize: ScreenUtil().setSp(20.0),
-                                            color: Colors.grey),
-                                      ),
-                                    ],
-                                  ),
-                                ],
-                              ),
-                            );
+                        margin: BubbleEdges.only(
+                            top: (index < msgs.length - 2 &&
+                                msgs[index + 1].isMe)
+                                ? ScreenUtil().setHeight(20.0)
+                                : ScreenUtil().setHeight(5.0),
+                            right: ScreenUtil().setWidth(100.0)),
+                        nip: (index < msgs.length - 1 &&
+                            msgs[index + 1].isMe)
+                            ? BubbleNip.leftTop
+                            : BubbleNip.no,
+                        nipHeight: ScreenUtil().setHeight(12.0),
+                        alignment: Alignment.centerLeft,
+                        elevation: 0.4,
+                        child: new Column(
+                          mainAxisSize: MainAxisSize.min,
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: <Widget>[
+                            new Text(
+                              msgs[index].msg,
+                            ),
+                            new SizedBox(
+                              height: ScreenUtil().setHeight(10.0),
+                            ),
+                            new Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              mainAxisSize: MainAxisSize.min,
+                              children: <Widget>[
+                                new Text(
+                                  msgs[index].time,
+                                  style: new TextStyle(
+                                      fontSize: ScreenUtil().setSp(20.0),
+                                      color: Colors.grey),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      );
                     },
                   ),
                 )),

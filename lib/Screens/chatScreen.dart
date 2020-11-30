@@ -14,7 +14,7 @@ class _ChatScreenState extends State<ChatScreen> {
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
-        itemCount: dummyMsg.length,
+        itemCount: 10,
         itemBuilder: (context, index) {
           return Container(
               margin: index == 0
@@ -33,7 +33,7 @@ class _ChatScreenState extends State<ChatScreen> {
                     borderRadius: BorderRadius.circular(50.0),
                     child: Image(
                       fit: BoxFit.cover,
-                      image: AssetImage(dummyMsg[index].imageURL),
+                      image: AssetImage("assets/images/person1.jpeg"),
                       width: ScreenUtil().setWidth(104.0),
                       height: ScreenUtil().setHeight(90.0),
                     ),
@@ -48,7 +48,7 @@ class _ChatScreenState extends State<ChatScreen> {
                           context,
                           MaterialPageRoute(
                               builder: (_) =>
-                                  PersonChatView(user: dummyMsg[index])));
+                                  PersonChatView(user: ChatModel.list[index])));
                     },
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -59,14 +59,14 @@ class _ChatScreenState extends State<ChatScreen> {
                             Container(
                               width: ScreenUtil().setWidth(400.0),
                               child: Text(
-                                dummyMsg[index].name,
+                                "user1",
                                 style: TextStyle(
                                     fontSize: ScreenUtil().setSp(32.0),
                                     fontWeight: FontWeight.w600),
                               ),
                             ),
                             Text(
-                              dummyMsg[index].time,
+                              '10:15am',
                               style: new TextStyle(
                                   color: Colors.grey,
                                   fontSize: ScreenUtil().setSp(21.0),
@@ -78,7 +78,7 @@ class _ChatScreenState extends State<ChatScreen> {
                         new Container(
                           width: ScreenUtil().setWidth(500.0),
                           child: new Text(
-                            dummyMsg[index].message,
+                           "hello",
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                             style: new TextStyle(

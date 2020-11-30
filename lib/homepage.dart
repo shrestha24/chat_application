@@ -1,140 +1,133 @@
+import 'package:chat_application/Screens/personChatView.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-import 'Screens/calls.dart';
-import 'Screens/camera.dart';
-import 'Screens/chatScreen.dart';
-import 'Screens/status.dart';
+import 'models/chatUser.dart';
 
-
-
-class HomePage extends StatefulWidget {
-  const HomePage({Key key}) : super(key: key);
-
+class MainHomeScreen extends StatefulWidget {
   @override
-  _HomePageState createState() => _HomePageState();
+  _MainHomeScreenState createState() => _MainHomeScreenState();
 }
 
-class _HomePageState extends State<HomePage>
-    with SingleTickerProviderStateMixin {
-  TabController _tabController;
-
-  @override
-  void initState() {
-    super.initState();
-
-    _tabController = new TabController(length: 4, vsync: this, initialIndex: 1);
-    _tabController.addListener(() {
-      setState(() {});
-    });
-  }
+class _MainHomeScreenState extends State<MainHomeScreen> {
+  List<ChatModel> list = ChatModel.list;
 
   @override
   Widget build(BuildContext context) {
-    ScreenUtil.init(context, allowFontScaling: true);
-    double tabWidth = MediaQuery.of(context).size.width / 5;
     return Scaffold(
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-        title: Text("WhatsApp"),
-        actions: <Widget>[Icon(Icons.search), Icon(Icons.more_vert)],
-        bottom: TabBar(
-            controller: _tabController,
-            isScrollable: true,
-            indicatorColor: Colors.white,
-            tabs: [
-              Container(
-                height: ScreenUtil().setHeight(60.0),
-                padding: EdgeInsets.only(bottom: ScreenUtil().setHeight(15.0)),
-                alignment: Alignment.bottomCenter,
-                width: ScreenUtil().setWidth(50.0),
-                child: Center(
-                  child: Icon(
-                    Icons.camera_alt,
-                    size: ScreenUtil().setSp(40.0),
+        backgroundColor: Colors.black87,
+        appBar: AppBar(
+          elevation: 0,
+          backgroundColor: Colors.black87,
+          title: Text(
+            "Chat",
+            style: TextStyle(fontSize: 32),
+          ),
+          actions: <Widget>[
+            IconButton(
+                icon: Icon(
+                  FontAwesomeIcons.filter,
+                  color: Colors.blue,
+                ),
+                onPressed: null),
+          ],
+        ),
+        body: Column(
+          children: <Widget>[
+            Container(
+              margin: EdgeInsets.all(16),
+              padding: EdgeInsets.all(6),
+              decoration: BoxDecoration(
+                  color: Colors.black87,
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(10),
+                  )),
+              child: TextField(
+                style: TextStyle(
+                  color: Colors.white,
+                ),
+                decoration: InputDecoration(
+                  prefixIcon: Icon(
+                    FontAwesomeIcons.search,
+                    color: Colors.blue,
+                  ),
+                  hintText: "Search",
+                  hintStyle: TextStyle(
+                    color: Colors.white,
                   ),
                 ),
               ),
-              Container(
-                  height: ScreenUtil().setHeight(50.0),
-                  alignment: Alignment.center,
-                  width: tabWidth,
-                  child: new Text("CHATS")),
-              Container(
-                height: ScreenUtil().setHeight(50.0),
-                alignment: Alignment.center,
-                width: tabWidth,
-                child: new Text("STATUS"),
-              ),
-              Container(
-                height: ScreenUtil().setHeight(50.0),
-                alignment: Alignment.center,
-                width: tabWidth,
-                child: new Text("CALLS"),
-              )
-            ]),
-      ),
-      body: TabBarView(controller: _tabController, children: [
-        CameraScreen(),
-        ChatScreen(),
-        StatusScreen(),
-        CallsScreen(),
-      ]),
-      floatingActionButton: _buildFAB(_tabController.index),
-    );
-  }
-
-  Widget _buildFAB(int index) {
-    if (index == 1) {
-      return new FloatingActionButton(
-        onPressed: () {},
-        child: new Icon(
-          Icons.message,
-          color: Colors.white,
-        ),
-        backgroundColor: Theme.of(context).secondaryHeaderColor,
-      );
-    } else if (index == 2) {
-      return Column(
-        mainAxisAlignment: MainAxisAlignment.end,
-        children: <Widget>[
-          new FloatingActionButton(
-            onPressed: () {},
-            mini: true,
-            child: new Icon(
-              Icons.create,
-              color: Theme.of(context).primaryColor,
             ),
-            backgroundColor: Theme.of(context).accentColor,
-          ),
-          new SizedBox(
-            height: ScreenUtil().setHeight(12.0),
-          ),
-          new FloatingActionButton(
-            onPressed: () {},
-            child: new Icon(
-              Icons.add_a_photo,
-              color: Colors.white,
+            Expanded(
+              child: ListView.builder(
+                  itemCount: list.length,
+                  itemBuilder: (context, index) {
+                    return ListTile(
+                      onTap: () {
+                        /*Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (_) => ChatItemPage(),
+                  ),
+                );*/
+                      },
+                      leading: Container(
+                          width: 50,
+                          height: 50,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(100),
+                            ),
+                          ),
+                          child: Icon(
+                            FontAwesomeIcons.user,
+                            color: Colors.blue,
+                            size: 30.0,
+                          )),
+                      title: Text(
+                        list[index].contact.name,
+                        style: TextStyle(
+                          color: Colors.white,
+                        ),
+                      ),
+                      subtitle: list[index].isTyping
+                          ? Row(
+                        children: <Widget>[
+                          SpinKitThreeBounce(
+                            color: Colors.blue,
+                            size: 20.0,
+                          ),
+                        ],
+                      )
+                          : Row(
+                        children: <Widget>[
+                          Text(
+                            list[index].lastMessage,
+                            style: TextStyle(
+                              color: Colors.white54,
+                            ),
+                          ),
+                          SizedBox(width: 25),
+                          Text(
+                            list[index].lastMessageTime + " days ago",
+                            style: TextStyle(color: Colors.white54),
+                          ),
+                        ],
+                      ),
+                    );
+                  }),
             ),
-            backgroundColor: Theme.of(context).secondaryHeaderColor,
-          ),
-        ],
-      );
-    } else if (index == 3) {
-      return new FloatingActionButton(
-        onPressed: () {},
-        child: new Icon(
-          Icons.add_call,
-          color: Colors.white,
+          ],
         ),
-        backgroundColor: Theme.of(context).secondaryHeaderColor,
-      );
-    }
-  }
-
-  @override
-  void dispose() {
-    _tabController.dispose();
-    super.dispose();
+        floatingActionButton: FloatingActionButton.extended(
+          backgroundColor: const Color(0xff03dac6),
+          foregroundColor: Colors.black,
+          onPressed: () {
+            Navigator.push(context,
+                new MaterialPageRoute(builder: (context) => PersonChatView()));
+          },
+          icon: Icon(Icons.add),
+          label: Text('New Contact'),
+        ));
   }
 }
