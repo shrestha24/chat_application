@@ -1,9 +1,13 @@
 import 'package:chat_application/Screens/personChatView.dart';
+import 'package:chat_application/contacts.dart';
+import 'package:chat_application/models/lastmsg.dart';
+import 'package:chat_application/models/userModel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-
+import 'package:hive/hive.dart';
 import 'models/chatUser.dart';
+import 'models/chatUserDummy.dart';
 
 class MainHomeScreen extends StatefulWidget {
   @override
@@ -11,10 +15,27 @@ class MainHomeScreen extends StatefulWidget {
 }
 
 class _MainHomeScreenState extends State<MainHomeScreen> {
-  List<ChatModel> list = ChatModel.list;
+  List<LastMsg> list1 = [];
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getData();
+  }
+
+  getData() {
+    list1 = [];
+    var xz = Hive.box('lastChat').keys;
+    List list11 = Set.from(xz).toList();
+
+    for (var item in list11) {
+      list1.add(Hive.box('lastChat').get(item));
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
+    getData();
     return Scaffold(
         backgroundColor: Colors.black87,
         appBar: AppBar(
@@ -60,62 +81,64 @@ class _MainHomeScreenState extends State<MainHomeScreen> {
               ),
             ),
             Expanded(
-              child: ListView.builder(
-                  itemCount: list.length,
-                  itemBuilder: (context, index) {
-                    return ListTile(
-                      onTap: () {
-                        /*Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (_) => ChatItemPage(),
-                  ),
-                );*/
-                      },
-                      leading: Container(
-                          width: 50,
-                          height: 50,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(100),
-                            ),
-                          ),
-                          child: Icon(
-                            FontAwesomeIcons.user,
-                            color: Colors.blue,
-                            size: 30.0,
-                          )),
-                      title: Text(
-                        list[index].contact.name,
-                        style: TextStyle(
-                          color: Colors.white,
-                        ),
-                      ),
-                      subtitle: list[index].isTyping
-                          ? Row(
-                        children: <Widget>[
-                          SpinKitThreeBounce(
-                            color: Colors.blue,
-                            size: 20.0,
-                          ),
-                        ],
-                      )
-                          : Row(
-                        children: <Widget>[
-                          Text(
-                            list[index].lastMessage,
+              child: list1.length == 0
+                  ? SizedBox()
+                  : ListView.builder(
+                      itemCount: list1.length,
+                      itemBuilder: (context, index) {
+                        return ListTile(
+                          onTap: () {
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (_) => ChatItemPage(),
+                              ),
+                            );
+                          },
+                          leading: Container(
+                              width: 50,
+                              height: 50,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.all(
+                                  Radius.circular(100),
+                                ),
+                              ),
+                              child: Icon(
+                                FontAwesomeIcons.user,
+                                color: Colors.blue,
+                                size: 30.0,
+                              )),
+                          title: Text(
+                            list1[index].name,
                             style: TextStyle(
-                              color: Colors.white54,
+                              color: Colors.white,
                             ),
                           ),
-                          SizedBox(width: 25),
-                          Text(
-                            list[index].lastMessageTime + " days ago",
-                            style: TextStyle(color: Colors.white54),
-                          ),
-                        ],
-                      ),
-                    );
-                  }),
+                          subtitle: false
+                              ? Row(
+                                  children: <Widget>[
+                                    SpinKitThreeBounce(
+                                      color: Colors.blue,
+                                      size: 20.0,
+                                    ),
+                                  ],
+                                )
+                              : Row(
+                                  children: <Widget>[
+                                    Text(
+                                      list1[index].msg,
+                                      style: TextStyle(
+                                        color: Colors.white54,
+                                      ),
+                                    ),
+                                    SizedBox(width: 25),
+                                    Text(
+                                      list1[index].time,
+                                      style: TextStyle(color: Colors.white54),
+                                    ),
+                                  ],
+                                ),
+                        );
+                      }),
             ),
           ],
         ),
@@ -124,7 +147,7 @@ class _MainHomeScreenState extends State<MainHomeScreen> {
           foregroundColor: Colors.black,
           onPressed: () {
             Navigator.push(context,
-                new MaterialPageRoute(builder: (context) => PersonChatView()));
+                MaterialPageRoute(builder: (context) => ContactsList()));
           },
           icon: Icon(Icons.add),
           label: Text('New Contact'),

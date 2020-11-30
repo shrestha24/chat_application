@@ -1,5 +1,6 @@
 import 'package:chat_application/Screens/personChatView.dart';
 import 'package:chat_application/models/chatUser.dart';
+import 'package:chat_application/models/chatUserDummy.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -44,11 +45,11 @@ class _ChatScreenState extends State<ChatScreen> {
                   Expanded(
                       child: GestureDetector(
                     onTap: () {
-                      Navigator.push(
+                     /* Navigator.push(
                           context,
                           MaterialPageRoute(
                               builder: (_) =>
-                                  PersonChatView(user: ChatModel.list[index])));
+                                  PersonChatView(user: dummyMsg[1])));*/
                     },
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -78,7 +79,7 @@ class _ChatScreenState extends State<ChatScreen> {
                         new Container(
                           width: ScreenUtil().setWidth(500.0),
                           child: new Text(
-                           "hello",
+                            "hello",
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                             style: new TextStyle(

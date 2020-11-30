@@ -31,7 +31,17 @@ dependencies:
   firebase_storage:
   bubble: ^1.1.9+1
   flutter_spinkit:
+  fluttertoast:
+  permission_handler: ^5.0.1
   font_awesome_flutter: ^8.7.0
+  contacts_service: ^0.4.6
+  hive:
+  hive_flutter:
+  path_provider:
+  async: ^2.4.2
+  intl:
+  
+ 
 
 
 
@@ -42,6 +52,9 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  hive_generator:
+  build_runner:
+
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
