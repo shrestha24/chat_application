@@ -3,8 +3,9 @@ import 'package:encrypt/encrypt.dart';
 class EncrytService {
   Future<String> getEncryptedText(String text, String key1) async {
     final plainText = text;
+    print(plainText);
     final key = Key.fromUtf8(key1);
-    final iv = IV.fromLength(16);
+    final iv = new IV.fromLength(16);
 
     final encrypter = Encrypter(AES(key));
 
@@ -20,7 +21,7 @@ class EncrytService {
   Future<String> getDecryptedText(String text, String key1) async {
     final plainText = text;
     final key = Key.fromUtf8(key1);
-    final iv = IV.fromLength(16);
+    final iv = new IV.fromLength(16);
 
     final encrypter = Encrypter(AES(key));
 

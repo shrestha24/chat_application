@@ -226,6 +226,9 @@ class _PersonChatViewState extends State<PersonChatView> {
                                         onTap: () {
                                           final GlobalKey<FormState> _formKey =
                                               GlobalKey();
+                                          final TextEditingController
+                                              popupController1 =
+                                              TextEditingController();
                                           showDialog(
                                               context: context,
                                               builder: (context) {
@@ -251,6 +254,8 @@ class _PersonChatViewState extends State<PersonChatView> {
                                                                   children: <
                                                                       Widget>[
                                                                     TextFormField(
+                                                                      controller:
+                                                                          popupController1,
                                                                       maxLength:
                                                                           40,
                                                                       validator:
@@ -278,14 +283,12 @@ class _PersonChatViewState extends State<PersonChatView> {
                                                                         String key = "6371849902" +
                                                                             widget.user1.Phone +
                                                                             "abcdefghi";
-                                                                        ShowToast().showToast(key
-                                                                            .length
-                                                                            .toString());
+
                                                                         print(key
                                                                             .length
                                                                             .toString());
                                                                         var result = await EncrytService().getEncryptedText(
-                                                                            _messageController.text,
+                                                                            popupController1.text,
                                                                             key);
 
                                                                         Timer(
@@ -323,6 +326,9 @@ class _PersonChatViewState extends State<PersonChatView> {
                                   onTap: () async {
                                     final GlobalKey<FormState> _formKey =
                                         GlobalKey();
+                                    final TextEditingController
+                                        popupControllerdecrypt =
+                                        TextEditingController();
                                     showDialog(
                                         context: context,
                                         builder: (context) {
@@ -347,7 +353,8 @@ class _PersonChatViewState extends State<PersonChatView> {
                                                                     .min,
                                                             children: <Widget>[
                                                               TextFormField(
-                                                                maxLength: 40,
+                                                                controller:
+                                                                    popupControllerdecrypt,
                                                                 validator:
                                                                     (value) {
                                                                   if (value
@@ -386,7 +393,7 @@ class _PersonChatViewState extends State<PersonChatView> {
                                                                       .toString());
                                                                   var result = await EncrytService()
                                                                       .getDecryptedText(
-                                                                          _messageController
+                                                                          popupControllerdecrypt
                                                                               .text,
                                                                           key);
 

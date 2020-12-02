@@ -143,6 +143,8 @@ class _MainHomeScreenState extends State<MainHomeScreen> {
                                       style: TextStyle(
                                         color: Colors.white54,
                                       ),
+                                      overflow: TextOverflow.fade,
+                                      softWrap: true,
                                     ),
                                     SizedBox(width: 25),
                                     Text(
