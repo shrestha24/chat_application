@@ -1,3 +1,4 @@
+import 'package:chat_application/Screens/aboutus.dart';
 import 'package:chat_application/Screens/my_profile.dart';
 import 'package:chat_application/models/lastmsg.dart';
 import 'package:chat_application/models/msg.dart';
@@ -5,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:camera/camera.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:path_provider/path_provider.dart' as path_provider;
+import 'Screens/splash.dart';
 import 'homepage.dart';
 import 'package:hive/hive.dart';
 
@@ -38,7 +40,7 @@ class MyApp extends StatelessWidget {
         cardColor: Color.fromRGBO(250, 250, 250, 1.0),
         accentColor: Color.fromRGBO(236, 229, 221, 1.0),
       ),
-      home: MainHomeScreen(),
+      home:AboutUs(),
     );
   }
 }
