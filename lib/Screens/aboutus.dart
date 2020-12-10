@@ -5,7 +5,7 @@ class AboutUs extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+
       body: ListView.builder(
         itemCount: mlist.length,
         itemBuilder: (context,index){
@@ -13,7 +13,7 @@ class AboutUs extends StatelessWidget {
             elevation: 8,
             child: ListTile(
               leading: CircleAvatar(
-                radius:30 ,backgroundImage: AssetImage(mlist[index].image),),
+                radius:28  ,backgroundImage: AssetImage(mlist[index].image),),
               title: Text(mlist[index].name,style: TextStyle(fontSize: 25),),
               subtitle: Text(mlist[index].speciality,style: TextStyle(fontSize: 20),),
 

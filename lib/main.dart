@@ -40,7 +40,7 @@ class MyApp extends StatelessWidget {
         cardColor: Color.fromRGBO(250, 250, 250, 1.0),
         accentColor: Color.fromRGBO(236, 229, 221, 1.0),
       ),
-      home:AboutUs(),
+      home:SplashScreen(),
     );
   }
 }
