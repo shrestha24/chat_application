@@ -1,3 +1,4 @@
+import 'package:chat_application/models/aboutusUser.dart';
 import 'package:flutter/material.dart';
 
 class AboutUs extends StatelessWidget {
@@ -6,14 +7,15 @@ class AboutUs extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(),
       body: ListView.builder(
-        itemCount: 1,
+        itemCount: mlist.length,
         itemBuilder: (context,index){
           return Card(
             elevation: 8,
             child: ListTile(
-              leading: Text("Leading"),
-              title: Text("title"),
-              subtitle: Text("SubTitle"),
+              leading: CircleAvatar(
+                radius:30 ,backgroundImage: AssetImage(mlist[index].image),),
+              title: Text(mlist[index].name,style: TextStyle(fontSize: 25),),
+              subtitle: Text(mlist[index].speciality,style: TextStyle(fontSize: 20),),
 
             ),
           );
