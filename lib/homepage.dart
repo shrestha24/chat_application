@@ -1,4 +1,6 @@
+import 'package:chat_application/Screens/aboutus.dart';
 import 'package:chat_application/Screens/personChatView.dart';
+import 'package:chat_application/common/menu.dart';
 import 'package:chat_application/contacts.dart';
 import 'package:chat_application/models/lastmsg.dart';
 import 'package:chat_application/models/userModel.dart';
@@ -46,12 +48,11 @@ class _MainHomeScreenState extends State<MainHomeScreen> {
             style: TextStyle(fontSize: 32),
           ),
           actions: <Widget>[
-            IconButton(
-                icon: Icon(
-                  FontAwesomeIcons.filter,
-                  color: Colors.blue,
-                ),
-                onPressed: null),
+            PopUpMenuForHomePage(
+
+              context: context,
+
+            )
           ],
         ),
         body: Column(
