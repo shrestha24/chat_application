@@ -283,6 +283,11 @@ class _PersonChatViewState extends State<PersonChatView> {
                                                                         String key = "6371849902" +
                                                                             widget.user1.Phone +
                                                                             "abcdefghi";
+                                                                        if (key.length ==
+                                                                            30) {
+                                                                          key = key +
+                                                                              "jk";
+                                                                        }
 
                                                                         print(key
                                                                             .length
@@ -384,6 +389,11 @@ class _PersonChatViewState extends State<PersonChatView> {
                                                                           .user1
                                                                           .Phone +
                                                                       "abcdefghi";
+                                                                  if (key.length ==
+                                                                      30) {
+                                                                    key = key +
+                                                                        "jk";
+                                                                  }
                                                                   ShowToast()
                                                                       .showToast(key
                                                                           .length

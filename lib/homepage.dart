@@ -39,48 +39,35 @@ class _MainHomeScreenState extends State<MainHomeScreen> {
   Widget build(BuildContext context) {
     getData();
     return Scaffold(
-        backgroundColor: Colors.black87,
+        backgroundColor: Colors.white,
         appBar: AppBar(
           elevation: 0,
-          backgroundColor: Colors.black87,
+          backgroundColor: Colors.white10,
           title: Text(
             "Chat",
             style: TextStyle(fontSize: 32),
           ),
           actions: <Widget>[
             PopUpMenuForHomePage(
-
               context: context,
-
             )
           ],
         ),
         body: Column(
           children: <Widget>[
             Container(
-              margin: EdgeInsets.all(16),
-              padding: EdgeInsets.all(6),
-              decoration: BoxDecoration(
-                  color: Colors.black87,
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(10),
-                  )),
-              child: TextField(
-                style: TextStyle(
-                  color: Colors.white,
-                ),
-                decoration: InputDecoration(
-                  prefixIcon: Icon(
-                    FontAwesomeIcons.search,
-                    color: Colors.blue,
-                  ),
-                  hintText: "Search",
-                  hintStyle: TextStyle(
-                    color: Colors.white,
-                  ),
-                ),
-              ),
-            ),
+                margin: EdgeInsets.all(16),
+                padding: EdgeInsets.all(6),
+                decoration: BoxDecoration(
+                    color: Colors.white10,
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(10),
+                    )),
+                child: Center(
+                    child: Text(
+                  "Inbox",
+                  style: TextStyle(fontSize: 40),
+                ))),
             Expanded(
               child: list1.length == 0
                   ? SizedBox()
@@ -125,7 +112,7 @@ class _MainHomeScreenState extends State<MainHomeScreen> {
                           title: Text(
                             list1[index].name,
                             style: TextStyle(
-                              color: Colors.white,
+                              color: Colors.black,
                             ),
                           ),
                           subtitle: false
@@ -142,7 +129,7 @@ class _MainHomeScreenState extends State<MainHomeScreen> {
                                     Text(
                                       list1[index].msg,
                                       style: TextStyle(
-                                        color: Colors.white54,
+                                        color: Colors.black26,
                                       ),
                                       overflow: TextOverflow.fade,
                                       softWrap: true,
@@ -150,7 +137,7 @@ class _MainHomeScreenState extends State<MainHomeScreen> {
                                     SizedBox(width: 25),
                                     Text(
                                       list1[index].time,
-                                      style: TextStyle(color: Colors.white54),
+                                      style: TextStyle(color: Colors.black),
                                     ),
                                   ],
                                 ),
@@ -161,7 +148,7 @@ class _MainHomeScreenState extends State<MainHomeScreen> {
         ),
         floatingActionButton: FloatingActionButton.extended(
           backgroundColor: const Color(0xff03dac6),
-          foregroundColor: Colors.black,
+          foregroundColor: Colors.white,
           onPressed: () {
             Navigator.push(context,
                 MaterialPageRoute(builder: (context) => ContactsList()));
